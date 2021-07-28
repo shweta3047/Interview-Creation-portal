@@ -20,12 +20,6 @@ const ParticipantSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    interviews: [
-      {
-        type: ObjectId,
-        ref: "Interview",
-      },
-    ],
   },
   { timestamps: true }
 );

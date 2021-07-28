@@ -8,6 +8,7 @@ import l from "./logger";
 import * as OpenApiValidator from "express-openapi-validator";
 import errorHandler from "../api/middlewares/error.handler";
 import database from "../database";
+var cors = require("cors");
 
 const app = new Express();
 
@@ -42,6 +43,7 @@ export default class ExpressServer {
         ignorePaths: /.*\/spec(\/|$)/,
       })
     );
+    app.use(cors());
   }
 
   router(routes) {

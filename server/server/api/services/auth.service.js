@@ -24,6 +24,28 @@ export class AuthService {
       throw error;
     }
   }
+
+  async signup(adminDetail) {
+    try {
+      const { email, password } = adminDetail;
+      if (!email || !password)
+        throw { message: "Fill all the required fields!" };
+      const admin = await Admin.findOne({ email });
+      if (admin) throw { message: `Email already exists!` };
+
+      const hashedPassword = await bcrypt.hash(password, 9);
+
+      const newadmin = await Admin.create({
+        email,
+        password: hashedPassword,
+      });
+      newadmin.password = undefined;
+      return { admin: newadmin };
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
 }
 
 export default new AuthService();
